@@ -1,0 +1,51 @@
+# Ports for QEMU connectivity. 
+# base=ssh, base+1=qmp interface, base+2=qemu monitor, base+3=gdb server.
+BASE_SSH_PORT=9000
+# When launching multiple qemu instances, hostN base port will be 
+# BASE_SSH_PORT+ PORT_INCREMENT_PER_HOST*(N-1)
+PORT_INCREMENT_PER_HOST=1000
+
+# Set these before install and build (leave branch blank for default HEAD)
+KERNEL_GIT=https://github.com/weiny2/linux-kernel.git
+KERNEL_BRANCH=dcd-v6-2025-04-13
+KCONFIG=$(pwd)/scripts/example_kernel_config
+KERNEL_CONFIG=$(pwd)/example_kernel_config
+QEMU_GIT=https://gitlab.com/jic23/qemu.git
+QEMU_BRANCH=cxl-2025-07-03
+
+#Apply patches from mailing lists, separated by commas...
+QEMU_PATCHES=20250927002125.860668-1-anisa.su887@gmail.com
+KERNEL_PATCHES=
+
+# Set these if you want to install command line tools on the guest.
+
+CLI_TOOLS_TARGET_DIR=/root
+NDCTL_GIT=https://github.com/weiny2/ndctl.git
+NDCTL_BRANCH=dcd-region3-2025-04-13
+LIBCXLMI_GIT=https://github.com/computexpresslink/libcxlmi 
+LIBCXLMI_BRANCH=
+MCTP_GIT=https://github.com/CodeConstruct/mctp
+MCTP_BRANCH=
+ACPICA_GIT=https://github.com/acpica/acpica.git
+ACPICA_BRANCH=
+
+# Defaults that don't need changing unless you *really* want to...
+
+TARGET_DIR=$(pwd)
+MOUNT_POINT=/mnt
+IMAGE_NAME=rootfs.img
+GUEST_DATA_SHARE_PATH=host-share
+
+# Again, don't need changing unless you *really* want to... repo names for git cloning
+
+KERNEL_REPO_NAME="linux-kernel"
+QEMU_REPO_NAME="qemu"
+NDCTL_REPO_NAME="ndctl"
+LIBCXLMI_REPO_NAME="libcxlmi"
+MCTP_REPO_NAME="mctp"
+ACPICA_REPO_NAME="acpica"
+
+# DONT modify unless you are certain what you are doing. Dont install modules/headers to your host system accidentally...
+
+INSTALL_MOD_PATH=$TARGET_DIR/modules_shared_install
+INSTALL_HDR_PATH=$TARGET_DIR/modules_shared_install
