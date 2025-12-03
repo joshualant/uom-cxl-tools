@@ -37,7 +37,7 @@ launch_instance() {
 
 machine_base() {
   MACHINE_BASE="$QEMU_DIR/build/qemu-system-x86_64 -gdb tcp::$(($BASE_PORT_SSH+3)) -kernel $KERNEL_SRC_DIR/arch/x86_64/boot/bzImage \
-    -append 'root=/dev/sda rw console=ttyS0,115200 loglevel=8 ignore_loglevel nokaslr cxl_acpi.dyndbg=+fplm cxl_pci.dyndbg=+fplm cxl_core.dyndbg=+fplm cxl_mem.dyndbg=+fplm cxl_pmem.dyndbg=+fplm cxl_port.dyndbg=+fplm cxl_region.dyndbg=+fplm cxl_test.dyndbg=+fplm cxl_mock.dyndbg=+fplm cxl_mock_mem.dyndbg=+fplm dax.dyndbg=+fplm dax_cxl.dyndbg=+fplm device_dax.dyndbg=+fplm pci=earlydump pci=trace pcie_aspm=off' \
+    -append 'root=/dev/sda rw console=ttyS0,115200 loglevel=8 ignore_loglevel nokaslr cxl_acpi.dyndbg=+fplm cxl_pci.dyndbg=+fplm cxl_core.dyndbg=+fplm cxl_mem.dyndbg=+fplm cxl_pmem.dyndbg=+fplm cxl_port.dyndbg=+fplm cxl_region.dyndbg=+fplm cxl_test.dyndbg=+fplm cxl_mock.dyndbg=+fplm cxl_mock_mem.dyndbg=+fplm dax.dyndbg=+fplm dax_cxl.dyndbg=+fplm device_dax.dyndbg=+fplm pci=earlydump pci=trace ' \
   -smp 1 -accel kvm -serial file:/$LOG_DIR/$ROOTFS_IMAGE_NAME.log -nographic -qmp tcp:localhost:$(($BASE_PORT_SSH+1)),server,wait=off \
   -netdev user,id=network0,hostfwd=tcp::$BASE_PORT_SSH-:22 -device e1000,netdev=network0 \
   -monitor telnet:127.0.0.1:$(($BASE_PORT_SSH+2)),server,nowait \
