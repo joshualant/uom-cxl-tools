@@ -1,0 +1,6 @@
+host-share
+linux-kernel
+modules_shared_install
+qemu
+rootfs*\.img
+*\.log
