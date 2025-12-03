@@ -54,6 +54,41 @@ example() {
     "
 }
 
+working_dcd_single_instance() {
+TOPOLOGY="-device usb-ehci,id=ehci \
+-object memory-backend-file,id=cxl-mem1,share=on,mem-path=/tmp/josh-t3_cxl_single_dcd.raw,size=4G \
+-object memory-backend-file,id=cxl-lsa1,share=on,mem-path=/tmp/josh-t3_lsa_single_dcd.raw,size=1M \
+-device pxb-cxl,bus_nr=11,bus=pcie.0,id=cxl.1,hdm_for_passthrough=true \
+-device cxl-rp,port=0,bus=cxl.1,id=cxl_rp_port0,chassis=0,slot=2 \
+-device cxl-upstream,port=0,sn=1234,bus=cxl_rp_port0,id=us0,addr=0.0,multifunction=on, \
+-device cxl-switch-mailbox-cci,bus=cxl_rp_port0,addr=0.3,target=us0 \
+-device cxl-downstream,port=0,bus=us0,id=swport0,slot=4 \
+-device cxl-type3,bus=swport0,volatile-dc-memdev=cxl-mem1,id=cxl-dcd0,lsa=cxl-lsa1,num-dc-regions=2,sn=99,multifunction=on \
+-device usb-cxl-mctp,bus=ehci.0,id=usb0,target=us0 \
+-device usb-cxl-mctp,bus=ehci.0,id=usb1,target=cxl-dcd0 \
+-machine cxl-fmw.0.targets.0=cxl.1,cxl-fmw.0.size=4G,cxl-fmw.0.interleave-granularity=1k "
+}
+
+dcd_two_dsp() {
+TOPOLOGY="-device usb-ehci,id=ehci \
+-object memory-backend-file,id=cxl-mem1,share=on,mem-path=/tmp/josh-t3_cxl_single_dcd.raw,size=4G \
+-object memory-backend-file,id=cxl-lsa1,share=on,mem-path=/tmp/josh-t3_lsa_single_dcd.raw,size=1M \
+-object memory-backend-file,id=cxl-mem2,share=on,mem-path=/tmp/josh-t3_cxl_single_dcd2.raw,size=4G \
+-object memory-backend-file,id=cxl-lsa2,share=on,mem-path=/tmp/josh-t3_lsa_single_dcd2.raw,size=1M \
+-device pxb-cxl,bus_nr=11,bus=pcie.0,id=cxl.1,hdm_for_passthrough=true \
+-device cxl-rp,port=0,bus=cxl.1,id=cxl_rp_port0,chassis=0,slot=2 \
+-device cxl-upstream,port=0,sn=1234,bus=cxl_rp_port0,id=us0,addr=0.0,multifunction=on, \
+-device cxl-switch-mailbox-cci,bus=cxl_rp_port0,addr=0.3,target=us0 \
+-device cxl-downstream,port=0,bus=us0,id=swport0,slot=4 \
+-device cxl-downstream,port=1,bus=us0,id=swport1,slot=5 \
+-device cxl-type3,bus=swport0,volatile-dc-memdev=cxl-mem1,id=cxl-dcd0,lsa=cxl-lsa1,num-dc-regions=2,sn=99,multifunction=on \
+-device cxl-type3,bus=swport1,volatile-dc-memdev=cxl-mem2,id=cxl-dcd1,lsa=cxl-lsa2,num-dc-regions=2,sn=99,multifunction=on \
+-device usb-cxl-mctp,bus=ehci.0,id=usb0,target=us0 \
+-device usb-cxl-mctp,bus=ehci.0,id=usb1,target=cxl-dcd0 \
+-device usb-cxl-mctp,bus=ehci.0,id=usb2,target=cxl-dcd1 \
+-machine cxl-fmw.0.targets.0=cxl.1,cxl-fmw.0.size=8G,cxl-fmw.0.interleave-granularity=1k "
+}
+
 LAUNCH=false
 
 generate_new_base_port() {
