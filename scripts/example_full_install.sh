@@ -5,8 +5,8 @@ CONFIG_FILE="$TARGET_DIR/scripts/config.txt"
 source "$CONFIG_FILE"
 
 # Download tools with shallow clone option (remove -q for full dl)
-./scripts/build_tools.sh -q -d kernel
-./scripts/build_tools.sh -q -d qemu
+./scripts/build_tools.sh  -d kernel
+./scripts/build_tools.sh  -d qemu
 # Apply patches to the projects
 ./scripts/build_tools.sh -p kernel
 ./scripts/build_tools.sh -p qemu
@@ -16,4 +16,4 @@ source "$CONFIG_FILE"
 # Create a filesystem image with relevant packages installed etc.
 ./scripts/create_image.sh -n 1
 # Launch a single qemu instance with "exmaple" CXL topology 
-./scripts/qemu_command.sh -l example
+#./scripts/qemu_command.sh -l example

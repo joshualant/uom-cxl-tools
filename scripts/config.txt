@@ -1,6 +1,6 @@
 # Ports for QEMU connectivity. 
 # base=ssh, base+1=qmp interface, base+2=qemu monitor, base+3=gdb server.
-BASE_SSH_PORT=9000
+BASE_SSH_PORT=10000
 # When launching multiple qemu instances, hostN base port will be 
 # BASE_SSH_PORT+ PORT_INCREMENT_PER_HOST*(N-1)
 PORT_INCREMENT_PER_HOST=1000
@@ -10,8 +10,8 @@ KERNEL_GIT=https://github.com/weiny2/linux-kernel.git
 KERNEL_BRANCH=dcd-v6-2025-04-13
 KCONFIG=$(pwd)/scripts/example_kernel_config
 KERNEL_CONFIG=$(pwd)/example_kernel_config
-QEMU_GIT=https://gitlab.com/jic23/qemu.git
-QEMU_BRANCH=cxl-2025-07-03
+QEMU_GIT=git@gitlab.com:JoshuaLant/qemu.git
+QEMU_BRANCH=cxl-2025-10-03-draft
 
 #Apply patches from mailing lists, separated by commas...
 QEMU_PATCHES=20250927002125.860668-1-anisa.su887@gmail.com
