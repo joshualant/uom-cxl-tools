@@ -120,6 +120,15 @@ while [[ $# -gt 0 ]]; do
             BASE_PORT_SSH=$2
             shift 2
             ;;
+        -i)
+            if [[ ! -f "$TARGET_DIR/$2" ]]; then
+                echo "Error: -i provided image name does not exist..." >&2
+                shift 2
+                break
+            fi
+            ROOTFS_IMAGE_NAME=$2
+            shift 2
+            ;;
         -*)
             echo "Error: Unknown option $1" 
             shift 1
