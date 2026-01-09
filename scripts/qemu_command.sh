@@ -115,7 +115,7 @@ TOPOLOGY="-device usb-ehci,id=ehci \
 -device cxl-rp,port=0,bus=cxl.0,id=root_port1,chassis=0,slot=1 \
 -device cxl-rp,port=1,bus=cxl.1,id=root_port2,chassis=1,slot=1 \
 -device cxl-upstream,port=0,sn=1234,bus=root_port1,id=us0,addr=0.0,multifunction=on, \
--device cxl-upstream,port=0,sn=5678,bus=root_port2,id=us1,addr=0.1,multifunction=on, \
+-device cxl-upstream,port=0,sn=5678,bus=root_port2,id=us1,addr=0.0,multifunction=on, \
 -device cxl-switch-mailbox-cci,bus=root_port1,addr=0.3,target=us0 \
 -device cxl-downstream,port=0,bus=us0,id=swport0,slot=3 \
 -device cxl-downstream,port=0,bus=us1,id=swport1,slot=4 \
@@ -123,28 +123,6 @@ TOPOLOGY="-device usb-ehci,id=ehci \
 -device cxl-type3,bus=swport1,volatile-dc-memdev=cxl-mem2,id=cxl-dcd1,lsa=cxl-lsa2,num-dc-regions=8,sn=100 \
 -machine cxl-fmw.0.targets.0=cxl.0,cxl-fmw.0.size=8G,cxl-fmw.1.targets.0=cxl.1,cxl-fmw.1.size=8G"
 }
-#-device usb-ehci,id=ehci \
-#-object memory-backend-file,id=cxl-mem1,share=on,mem-path=/tmp/t3_cxl1.raw,size=4G \
-#-object memory-backend-file,id=cxl-mem2,share=on,mem-path=/tmp/t3_cxl2.raw,size=4G \
-#-object memory-backend-file,id=cxl-lsa1,share=on,mem-path=/tmp/t3_lsa1.raw,size=1M \
-#-object memory-backend-file,id=cxl-lsa2,share=on,mem-path=/tmp/t3_lsa2.raw,size=1M \
-#-device pxb-cxl,bus_nr=11,bus=pcie.0,id=cxl.1,hdm_for_passthrough=true \
-#-device pxb-cxl,bus_nr=12,bus=pcie.0,id=cxl.2,hdm_for_passthrough=true \
-#-device cxl-rp,port=0,bus=cxl.1,id=cxl_rp_port0,chassis=0,slot=2 \
-#-device cxl-rp,port=1,bus=cxl.2,id=cxl_rp_port1,chassis=1,slot=2 \
-#-device cxl-upstream,port=0,sn=1234,bus=cxl_rp_port0,id=us0,addr=0.0,multifunction=on, \
-#-device cxl-upstream,port=0,sn=5678,bus=cxl_rp_port1,id=us1,addr=0.1,multifunction=on, \
-#-device cxl-switch-mailbox-cci,bus=cxl_rp_port0,addr=0.3,target=us0 \
-#-device cxl-switch-mailbox-cci,bus=cxl_rp_port1,addr=0.3,target=us1 \
-#-device cxl-downstream,port=0,bus=us0,id=swport0,slot=4 \
-#-device cxl-downstream,port=0,bus=us1,id=swport1,slot=5 \
-#-device cxl-type3,bus=swport0,volatile-dc-memdev=cxl-mem1,id=cxl-dcd0,lsa=cxl-lsa1,num-dc-regions=2,sn=99 \
-#-device cxl-type3,bus=swport1,volatile-dc-memdev=cxl-mem2,id=cxl-dcd1,lsa=cxl-lsa2,num-dc-regions=2,sn=100 \
-#-device usb-cxl-mctp,bus=ehci.0,id=usb0,target=us0 \
-#-device usb-cxl-mctp,bus=ehci.0,id=usb1,target=us1 \
-#-device usb-cxl-mctp,bus=ehci.0,id=usb2,target=cxl-dcd0 \
-#-device usb-cxl-mctp,bus=ehci.0,id=usb3,target=cxl-dcd1 \
-#-machine cxl-fmw.0.targets.0=cxl.2,cxl-fmw.1.targets.0=cxl.1,cxl-fmw.0.size=2G,cxl-fmw.1.size=2G,cxl-fmw.0.interleave-granularity=1k,cxl-fmw.1.interleave-granularity=1k
 
 LAUNCH=false
 
