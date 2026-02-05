@@ -203,6 +203,12 @@ cxl create-region -m mem0 -d decoder0.0 -s 2G -t dynamic_ram_a --debug
 
 [1] https://lore.kernel.org/linux-cxl/20250714174509.1984430-1-Jonathan.Cameron@huawei.com/
 
+In the VM, you can use libcxlmi to test.
+
+```sh
+cd libcxlmi
+python3 tests/run_tests.py --endpoint mctp 1 11 -s FMAPI --verify-rsp
+```
 -------------------------
 ## 6. Help
 
