@@ -1,5 +1,8 @@
-KERNEL_REPO_NAME="linux-kernel"
-QEMU_REPO_NAME="qemu"
+TARGET_DIR=$(pwd)
+CONFIG_FILE="$TARGET_DIR/scripts/config.txt"
+[[ -f "$CONFIG_FILE" ]] || { echo "Missing $CONFIG_FILE"; exit 1; }
+# shellcheck disable=SC1090
+source "$CONFIG_FILE"
 
 apply_patches() {
   IFS=',' read -ra PATCH_IDS <<< "$2"
