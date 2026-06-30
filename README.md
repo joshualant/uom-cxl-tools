@@ -19,7 +19,7 @@ not present, and if they are required. (I would like a concrete list of deps,
 but don't have it at this time...)
 
 Some clear dependencies are:
-qemu-img, debootstrap, slirp, b4
+qemu-img, debootstrap, slirp, b4, expect
 
 
 -------------------------
