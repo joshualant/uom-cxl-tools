@@ -79,6 +79,10 @@ acpica_installer() {
   cd -
 }
 
+NDCTL_DOWNLOAD=false
+LIBCXLMI_DOWNLOAD=false
+MCTP_DOWNLOAD=false
+ACPICA_DOWNLOAD=false
 
 if [[ $# -eq 0 ]]; then
   PRINT_HELP=true
