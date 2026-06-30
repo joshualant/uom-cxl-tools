@@ -1,20 +1,20 @@
 # Ports for QEMU connectivity. 
 # base=ssh, base+1=qmp interface, base+2=qemu monitor, base+3=gdb server.
-BASE_SSH_PORT=10000
+BASE_SSH_PORT=33000
 # When launching multiple qemu instances, hostN base port will be 
 # BASE_SSH_PORT+ PORT_INCREMENT_PER_HOST*(N-1)
 PORT_INCREMENT_PER_HOST=1000
 
 # Set these before install and build (leave branch blank for default HEAD)
-KERNEL_GIT=https://github.com/weiny2/linux-kernel.git
-KERNEL_BRANCH=dcd-v6-2025-04-13
+KERNEL_GIT=https://github.com/torvalds/linux.git
+KERNEL_BRANCH=v7.0-rc4
 KCONFIG=$(pwd)/scripts/example_kernel_config
 KERNEL_CONFIG=$(pwd)/example_kernel_config
-QEMU_GIT=git@gitlab.com:JoshuaLant/qemu.git
-QEMU_BRANCH=cxl-2025-10-03-draft
+QEMU_GIT=https://github.com/joshualant/qemu.git
+QEMU_BRANCH=cxl-vcs-multi-guest
 
 #Apply patches from mailing lists, separated by commas...
-QEMU_PATCHES=20250927002125.860668-1-anisa.su887@gmail.com
+QEMU_PATCHES=
 KERNEL_PATCHES=
 
 # Set these if you want to install command line tools on the guest.
@@ -23,7 +23,7 @@ CLI_TOOLS_TARGET_DIR=/root
 NDCTL_GIT=https://github.com/weiny2/ndctl.git
 NDCTL_BRANCH=dcd-region3-2025-04-13
 LIBCXLMI_GIT=https://github.com/joshualant/libcxlmi
-LIBCXLMI_BRANCH=add-test-cases
+LIBCXLMI_BRANCH=vcs-testing
 MCTP_GIT=https://github.com/CodeConstruct/mctp
 MCTP_BRANCH=
 ACPICA_GIT=https://github.com/acpica/acpica.git

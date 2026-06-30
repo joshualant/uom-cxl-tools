@@ -124,6 +124,73 @@ TOPOLOGY="-device usb-ehci,id=ehci \
 -machine cxl-fmw.0.targets.0=cxl.0,cxl-fmw.0.size=8G,cxl-fmw.1.targets.0=cxl.1,cxl-fmw.1.size=8G"
 }
 
+vcs_seccom_test_fm() {
+TOPOLOGY="-device usb-ehci,id=ehci \
+ -object memory-backend-file,id=cxl-mem1,share=on,mem-path=/$LOG_DIR/t3_cxl1.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa1,share=on,mem-path=/$LOG_DIR/t3_lsa1.raw,size=1M \
+ -object memory-backend-file,id=cxl-mem2,share=on,mem-path=/$LOG_DIR/t3_cxl2.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa2,share=on,mem-path=/$LOG_DIR/t3_lsa2.raw,size=1M \
+ -object memory-backend-file,id=cxl-mem3,share=on,mem-path=/$LOG_DIR/t3_cxl3.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa3,share=on,mem-path=/$LOG_DIR/t3_lsa3.raw,size=1M \
+ -object memory-backend-file,id=cxl-mem4,share=on,mem-path=/$LOG_DIR/t3_cxl4.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa4,share=on,mem-path=/$LOG_DIR/t3_lsa4.raw,size=1M \
+-object cxl-vcs-switch,id=vcs0,usps.0.remote=/$LOG_DIR/t3_cxl-sat0.sock,usps.1.remote=/$LOG_DIR/t3_cxl-sat1.sock,usp-ppbs=2,dsp-ppbs=4,local-fm=true \
+-device pxb-cxl,bus_nr=12,bus=pcie.0,id=cxl.0,hdm_for_passthrough=true \
+-device cxl-rp,port=0,bus=cxl.0,id=root_port1,chassis=0,slot=1 \
+-device cxl-switch-mailbox-cci,bus=root_port1,addr=0.0,target=vcs0 \
+-device usb-cxl-mctp,bus=ehci.0,id=usb0,target=vcs0"
+}
+
+vcs_seccom_test_node1() {
+TOPOLOGY="-device usb-ehci,id=ehci \
+ -object memory-backend-file,id=cxl-mem1,share=on,mem-path=/$LOG_DIR/t3_cxl1.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa1,share=on,mem-path=/$LOG_DIR/t3_lsa1.raw,size=1M \
+ -object memory-backend-file,id=cxl-mem2,share=on,mem-path=/$LOG_DIR/t3_cxl2.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa2,share=on,mem-path=/$LOG_DIR/t3_lsa2.raw,size=1M \
+ -object memory-backend-file,id=cxl-mem3,share=on,mem-path=/$LOG_DIR/t3_cxl3.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa3,share=on,mem-path=/$LOG_DIR/t3_lsa3.raw,size=1M \
+ -object memory-backend-file,id=cxl-mem4,share=on,mem-path=/$LOG_DIR/t3_cxl4.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa4,share=on,mem-path=/$LOG_DIR/t3_lsa4.raw,size=1M \
+-object cxl-vcs-switch,id=vcs0,usp-ppbs=2,dsp-ppbs=4,local-fm=false,usps.0.local=us0,usps.0.remote=/$LOG_DIR/t3_cxl-sat0.sock,usps.0.vcs-id=0 \
+-device pxb-cxl,bus_nr=12,bus=pcie.0,id=cxl.0,hdm_for_passthrough=true \
+-device cxl-rp,port=0,bus=cxl.0,id=root_port1,chassis=0,slot=1 \
+-device cxl-upstream,port=0,sn=1234,bus=root_port1,id=us0,addr=0.0,multifunction=on \
+-device cxl-downstream,port=0,bus=us0,id=swport0,slot=3 \
+-device cxl-downstream,port=1,bus=us0,id=swport1,slot=4 \
+-device cxl-downstream,port=2,bus=us0,id=swport2,slot=5 \
+-device cxl-downstream,port=3,bus=us0,id=swport3,slot=6 \
+-device cxl-type3,persistent-memdev=cxl-mem1,id=cxl-ep1,lsa=cxl-lsa1,sn=99,vcs=vcs0,dsppb=0 \
+-device cxl-type3,persistent-memdev=cxl-mem2,id=cxl-ep2,lsa=cxl-lsa2,sn=100,vcs=vcs0,dsppb=1 \
+-device cxl-type3,volatile-dc-memdev=cxl-mem3,id=cxl-dcd1,lsa=cxl-lsa3,num-dc-regions=8,sn=101,vcs=vcs0,dsppb=2 \
+-device cxl-type3,volatile-dc-memdev=cxl-mem4,id=cxl-dcd2,lsa=cxl-lsa4,num-dc-regions=8,sn=102,vcs=vcs0,dsppb=3 \
+-machine cxl-fmw.0.targets.0=cxl.0,cxl-fmw.0.size=8G"
+}
+
+vcs_seccom_test_node2() {
+TOPOLOGY="-device usb-ehci,id=ehci \
+ -object memory-backend-file,id=cxl-mem1,share=on,mem-path=/$LOG_DIR/t3_cxl1.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa1,share=on,mem-path=/$LOG_DIR/t3_lsa1.raw,size=1M \
+ -object memory-backend-file,id=cxl-mem2,share=on,mem-path=/$LOG_DIR/t3_cxl2.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa2,share=on,mem-path=/$LOG_DIR/t3_lsa2.raw,size=1M \
+ -object memory-backend-file,id=cxl-mem3,share=on,mem-path=/$LOG_DIR/t3_cxl3.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa3,share=on,mem-path=/$LOG_DIR/t3_lsa3.raw,size=1M \
+ -object memory-backend-file,id=cxl-mem4,share=on,mem-path=/$LOG_DIR/t3_cxl4.raw,size=8G \
+-object memory-backend-file,id=cxl-lsa4,share=on,mem-path=/$LOG_DIR/t3_lsa4.raw,size=1M \
+-object cxl-vcs-switch,id=vcs0,usp-ppbs=2,dsp-ppbs=4,local-fm=false,usps.0.local=us0,usps.0.remote=/$LOG_DIR/t3_cxl-sat1.sock,usps.0.vcs-id=1 \
+-device pxb-cxl,bus_nr=12,bus=pcie.0,id=cxl.0,hdm_for_passthrough=true \
+-device cxl-rp,port=0,bus=cxl.0,id=root_port1,chassis=0,slot=1 \
+-device cxl-upstream,port=0,sn=1234,bus=root_port1,id=us0,addr=0.0,multifunction=on \
+-device cxl-downstream,port=0,bus=us0,id=swport0,slot=3 \
+-device cxl-downstream,port=1,bus=us0,id=swport1,slot=4 \
+-device cxl-downstream,port=2,bus=us0,id=swport2,slot=5 \
+-device cxl-downstream,port=3,bus=us0,id=swport3,slot=6 \
+-device cxl-type3,persistent-memdev=cxl-mem1,id=cxl-ep1,lsa=cxl-lsa1,sn=99,vcs=vcs0,dsppb=0 \
+-device cxl-type3,persistent-memdev=cxl-mem2,id=cxl-ep2,lsa=cxl-lsa2,sn=100,vcs=vcs0,dsppb=1 \
+-device cxl-type3,volatile-dc-memdev=cxl-mem3,id=cxl-dcd1,lsa=cxl-lsa3,num-dc-regions=8,sn=101,vcs=vcs0,dsppb=2 \
+-device cxl-type3,volatile-dc-memdev=cxl-mem4,id=cxl-dcd2,lsa=cxl-lsa4,num-dc-regions=8,sn=102,vcs=vcs0,dsppb=3 \
+-machine cxl-fmw.0.targets.0=cxl.0,cxl-fmw.0.size=8G"
+}
+
 LAUNCH=false
 
 generate_new_base_port() {
