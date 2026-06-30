@@ -22,6 +22,8 @@ source "$CONFIG_FILE"
 ./scripts/qemu_command.sh -i rootfs2.img -p 34000 -l vcs_seccom_test_node1
 ./scripts/qemu_command.sh -i rootfs3.img -p 35000 -l vcs_seccom_test_node2
 
+sleep 10
+
 expect -c 'set timeout -1; spawn ssh -o StrictHostKeyChecking=no root@localhost -p 33000 "bash -lc /root/cli_tool_installer.sh\\ -n\\ -l\\ -m"; expect "password:"; send "root\r"; expect eof'
 expect -c 'set timeout -1; spawn ssh -o StrictHostKeyChecking=no root@localhost -p 34000 "bash -lc /root/cli_tool_installer.sh\\ -n\\ -l\\ -m"; expect "password:"; send "root\r"; expect eof'
 expect -c 'set timeout -1; spawn ssh -o StrictHostKeyChecking=no root@localhost -p 35000 "bash -lc /root/cli_tool_installer.sh\\ -n\\ -l\\ -m"; expect "password:"; send "root\r"; expect eof'
