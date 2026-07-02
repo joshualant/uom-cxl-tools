@@ -14,7 +14,7 @@ generate_base_image() {
   # Minimal install to SSH in... Doesnt install user packages for ndctl tests...
   #sudo debootstrap --arch=amd64 --include=openssh-server,ifupdown,net-tools,iproute2,bash bookworm $MOUNT_POINT
   # Maximal setup, ndctl tests should run with no missing deps.
-  sudo debootstrap --arch=amd64 --include=openssh-server,ifupdown,net-tools,iproute2,bash,git,meson,build-essential,pkg-config,cmake,libkmod-dev,libudev-dev,uuid-dev,libjson-c-dev,libtraceevent-dev,libtracefs-dev,asciidoctor,libkeyutils-dev,libiniparser-dev,keyutils,bash-completion,jq,bsdmainutils,xxd,parted,uuid-runtime,vim,pciutils,man-db,libdbus-1-dev,pkg-config,python3-pytest,libsystemd-dev,dbus,numactl,libnuma-dev,m4,bison,flex bookworm $MOUNT_POINT
+  sudo debootstrap --arch=amd64 --include=openssh-server,ifupdown,net-tools,iproute2,bash,git,meson,build-essential,pkg-config,cmake,libkmod-dev,libudev-dev,uuid-dev,libjson-c-dev,libtraceevent-dev,libtracefs-dev,asciidoctor,libkeyutils-dev,libiniparser-dev,keyutils,bash-completion,jq,bsdmainutils,xxd,parted,uuid-runtime,vim,pciutils,man-db,libdbus-1-dev,pkg-config,python3-pytest,libsystemd-dev,dbus,numactl,libnuma-dev,m4,bison,flex trixie $MOUNT_POINT
   # Setup networking at boot on the fs.
   sudo sh -c "echo 'auto enp0s2' >> \"$MOUNT_POINT/etc/network/interfaces\""
   sudo sh -c "echo 'iface enp0s2 inet dhcp' >> \"$MOUNT_POINT/etc/network/interfaces\""
